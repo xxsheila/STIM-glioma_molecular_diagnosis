@@ -1,0 +1,94 @@
+{
+    "GPUS": [
+        0
+    ],
+    "LOG_DIR": "log/25632/",
+    "OUTPUT_DIR": "output/25632/",
+    "WORKERS": 4,
+    "MODEL": {
+        "NAME": "resnet_1d357_atten_lstm4_IDH_9",
+        "IMAGE_SIZE": [
+            256,
+            32
+        ]
+    },
+    "CUDNN": {
+        "BENCHMARK": true,
+        "DETERMINISTIC": false,
+        "ENABLED": true
+    },
+    "DATASET": {
+        "DATASET": "IDH_tenfolder",
+        "ROOT": "/storage/xiexuan/single_biomarker_mianyi/tmp_dir/IDH/ten_folder",
+        "JSONDIR": "jsonfile",
+        "TRAIN_SET": [
+            "d_0",
+            "d_1",
+            "d_2",
+            "d_3",
+            "d_4",
+            "d_5",
+            "d_6",
+            "d_7",
+            "d_8",
+            "d_9"
+        ],
+        "VAL_SET": [
+            "d_10"
+        ],
+        "EVAL_SET": [
+            "d_10"
+        ],
+        "PATCH_CLASS": {
+            "feral": 0,
+            "mutational": 1,
+            "bg": 2
+        },
+        "THRESHOLD_NORM": 4000.0
+    },
+    "TRAIN": {
+        "BATCH_SIZE_PER_GPU": 4,
+        "BEGIN_EPOCH": 0,
+        "END_EPOCH": 1000,
+        "RESUME": true,
+        "LR_SCHEDULER": {
+            "LR_SCHEDULER": "EARLYSTOPPING",
+            "MultiStepLR": {
+                "LR_FACTOR": 0.1,
+                "LR_STEP": [
+                    7,
+                    10,
+                    12
+                ]
+            },
+            "EARLYSTOPPING": {
+                "PATIENCE": 300,
+                "DELTA": -0.0001,
+                "MIN_LR": 1e-05
+            },
+            "ExponentialLR": {
+                "EXPONENTIAL_LR_GAMMA": 0.9
+            }
+        },
+        "OPTIMIZER": "adam",
+        "LR": 0.0003,
+        "WD": 0.001,
+        "MOMENTUM": 0.9,
+        "NESTEROV": true,
+        "SHUFFLE": true,
+        "SEED": 3,
+        "PATCH_VIEW": 128
+    },
+    "TEST": {
+        "ROOT": [
+            "/storage/xiexuan/single_biomarker_mianyi/tmp_dir/IDH/ten_folder"
+        ],
+        "EVAL_SET": [
+            "d_10"
+        ],
+        "BATCH_SIZE_PER_GPU": 1,
+        "MODEL_FILE": "",
+        "PATCH_VIEW": 640
+    },
+    "DEBUG": false
+}
